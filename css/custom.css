@@ -1,0 +1,62 @@
+@media (max-width: 480px) {
+        .feature-content {
+        padding-left: 80px !important;
+        }
+}
+
+
+ol li {
+        line-height: 35px !important;
+       }
+
+ol {
+        font-size: 14px !important; 
+
+}
+
+/* alignment of the circle on home page */
+.creative-sec-thumb.one {   top: 420px; }
+.creative-sec-thumb.two { top: 420px;  }
+.creative-sec-thumb.three { top: 520px; }
+.creative-sec-thumb.four { top: 500px; }
+
+
+@media (min-width: 767px) {
+
+        .fsource {
+        margin-top: 0px;
+      }
+}
+
+.feature {
+        padding: 4px !important;
+}
+
+/* .team-description .doctors-detail {
+        padding-left: 490px !important;
+      } */
+
+
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+
+         text-transform: none !important;
+}
+
+
+.doctors-detail p {
+        width: 70% !important;
+      }
+
+      /* webpage loader class  */
+.tp-loader {
+
+        display: none !important;
+}
+
+
+@media screen and (min-width: 1024px) {
+        .doctors-detail {
+                padding-left: 406px !important;
+              }
+
+}
