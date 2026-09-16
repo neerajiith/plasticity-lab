@@ -79,6 +79,303 @@
 	<script src="js/modernizr-2.6.2.min.js"></script>
 	
 	
+	<!-- ==================================================
+	     PUBLICATIONS PAGE — SCIENTIFIC AESTHETIC
+	     ================================================== -->
+	<style>
+		/* ------------------------------------------------------
+		   1. PAGE BACKGROUND — subtle "lab notebook" texture
+		   ------------------------------------------------------ */
+		.pub-shell {
+			position: relative;
+			background-color: #fafbfc;
+			background-image:
+				radial-gradient(circle at 12% 18%, rgba(240,90,37,0.035) 0%, transparent 42%),
+				radial-gradient(circle at 88% 82%, rgba(74,144,217,0.035) 0%, transparent 42%),
+				radial-gradient(#e8ecef 1px, transparent 1px);
+			background-size: auto, auto, 26px 26px;
+			padding: 50px 0 60px;
+			overflow: hidden;
+		}
+
+		/* ------------------------------------------------------
+		   2. YEAR TABS — "neural pathway" pills
+		   ------------------------------------------------------ */
+		.pub-tabs { margin: 0 0 38px; }
+
+		.pub-tabs .pub-tab-list {
+			list-style: none;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-ms-flex-wrap: wrap;
+			    flex-wrap: wrap;
+			gap: 8px;
+			margin: 0 0 32px;
+			padding: 0 0 22px;
+			border-bottom: 1px solid #eceff2;
+			position: relative;
+		}
+		.pub-tabs .pub-tab-list::after {
+			content: "";
+			position: absolute;
+			bottom: -1px;
+			left: 0;
+			width: 90px;
+			height: 2px;
+			background: #F05A25;
+		}
+		.pub-tabs .pub-tab-list > li {
+			float: none;
+			margin: 0;
+		}
+		.pub-tabs .pub-tab-list > li > a {
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-align: center;
+			    -ms-flex-align: center;
+			        align-items: center;
+			gap: 8px;
+			padding: 9px 18px 9px 14px;
+			font-size: 14px;
+			font-weight: 600;
+			line-height: 1;
+			color: #5a6c7d;
+			background: #ffffff;
+			border: 1px solid #e6e9ec;
+			border-radius: 24px;
+			text-decoration: none;
+			transition: all .25s cubic-bezier(.4,0,.2,1);
+		}
+
+		/* the node dot on each year tab */
+		.pub-tabs .pub-tab-list > li > a::before {
+			content: "";
+			width: 7px;
+			height: 7px;
+			border-radius: 50%;
+			background: #cbd5db;
+			transition: all .25s ease;
+			flex-shrink: 0;
+		}
+
+		.pub-tabs .pub-tab-list > li > a:hover {
+			color: #F05A25;
+			border-color: #f8c4b0;
+			background: #fef9f7;
+			text-decoration: none;
+		}
+		.pub-tabs .pub-tab-list > li > a:hover::before {
+			background: #F05A25;
+			box-shadow: 0 0 0 4px rgba(240,90,37,.15);
+		}
+
+		.pub-tabs .pub-tab-list > li > a.active {
+			color: #ffffff;
+			background: #F05A25;
+			border-color: #F05A25;
+			box-shadow: 0 6px 16px rgba(240,90,37,.3);
+		}
+		.pub-tabs .pub-tab-list > li > a.active::before {
+			background: #ffffff;
+			box-shadow: 0 0 0 4px rgba(255,255,255,.3);
+		}
+
+		/* ------------------------------------------------------
+		   3. PANES — FIX: only the active pane shows
+		   ------------------------------------------------------ */
+		#pub-year-tabs .pub-tab-panes > .pub-pane { display: none !important; }
+		#pub-year-tabs .pub-tab-panes > .pub-pane.active { display: block !important; }
+
+		/* ------------------------------------------------------
+		   4. SECTION HEADERS — Peer-Reviewed / Preprints
+		   ------------------------------------------------------ */
+		.pub-heading-group {
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-align: center;
+			    -ms-flex-align: center;
+			        align-items: center;
+			gap: 12px;
+			margin: 42px 0 22px;
+			padding-bottom: 12px;
+			border-bottom: 2px solid #eef1f3;
+			position: relative;
+		}
+		.pub-heading-group:first-of-type { margin-top: 0; }
+
+		.pub-heading-group::after {
+			content: "";
+			position: absolute;
+			bottom: -2px;
+			left: 0;
+			width: 62px;
+			height: 2px;
+			background: #F05A25;
+		}
+		.pub-heading-group.preprint-heading::after { background: #4a90d9; }
+
+		.pub-heading-icon {
+			width: 38px;
+			height: 38px;
+			border-radius: 50%;
+			background: rgba(240,90,37,.1);
+			color: #F05A25;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-align: center;
+			    -ms-flex-align: center;
+			        align-items: center;
+			-webkit-box-pack: center;
+			    -ms-flex-pack: center;
+			        justify-content: center;
+			font-size: 16px;
+			flex-shrink: 0;
+		}
+		.preprint-heading .pub-heading-icon {
+			background: rgba(74,144,217,.1);
+			color: #4a90d9;
+		}
+
+		.pub-heading-group h3 {
+			font-size: 18px;
+			font-weight: 700;
+			font-style: italic;
+			color: #2c3e50;
+			margin: 0;
+			letter-spacing: .2px;
+		}
+
+		.pub-heading-count {
+			margin-left: auto;
+			font-size: 11.5px;
+			font-weight: 700;
+			color: #7a8a97;
+			background: #ffffff;
+			border: 1px solid #e6e9ec;
+			padding: 4px 13px;
+			border-radius: 12px;
+			font-style: normal;
+			letter-spacing: .4px;
+			white-space: nowrap;
+		}
+
+		/* ------------------------------------------------------
+		   5. PUBLICATION CARDS
+		   ------------------------------------------------------ */
+		.pub-list {
+			list-style: none;
+			counter-reset: pub-counter;
+			padding: 0;
+			margin: 0 0 10px;
+		}
+
+		.pub-list > li {
+			counter-increment: pub-counter;
+			position: relative;
+			padding: 18px 24px 18px 60px;
+			margin-bottom: 12px;
+			background: #ffffff;
+			border: 1px solid #eef1f3;
+			border-left: 3px solid #F05A25;
+			border-radius: 5px;
+			font-size: 14.5px;
+			line-height: 1.72;
+			color: #3c4854;
+			transition: all .22s ease;
+		}
+
+		.pub-list > li::before {
+			content: counter(pub-counter);
+			position: absolute;
+			left: 20px;
+			top: 17px;
+			font-size: 12.5px;
+			font-weight: 700;
+			color: #F05A25;
+			background: rgba(240,90,37,.08);
+			width: 26px;
+			height: 26px;
+			border-radius: 50%;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: flex;
+			-webkit-box-align: center;
+			    -ms-flex-align: center;
+			        align-items: center;
+			-webkit-box-pack: center;
+			    -ms-flex-pack: center;
+			        justify-content: center;
+		}
+
+		.pub-list > li:hover {
+			box-shadow: 0 6px 20px rgba(0,0,0,.07);
+			-webkit-transform: translateX(3px);
+			    -ms-transform: translateX(3px);
+			        transform: translateX(3px);
+		}
+
+		.pub-list > li i {
+			color: #2c3e50;
+			font-style: italic;
+		}
+
+		/* Preprint cards — softer blue accent */
+		.pub-list.preprint-list > li { border-left-color: #4a90d9; }
+		.pub-list.preprint-list > li::before {
+			color: #4a90d9;
+			background: rgba(74,144,217,.1);
+		}
+
+		/* "Full Article" link */
+		.pub-list > li a[target="_blank"] {
+			font-weight: 600;
+			white-space: nowrap;
+			text-decoration: none;
+			border-bottom: 1px dotted currentColor;
+			transition: all .2s;
+		}
+		.pub-list > li a[target="_blank"]:hover {
+			border-bottom-style: solid;
+		}
+
+		/* ------------------------------------------------------
+		   6. EMPTY STATE
+		   ------------------------------------------------------ */
+		.pub-empty {
+			color: #95a5a6;
+			font-style: italic;
+			font-size: 14px;
+			padding: 14px 20px;
+			background: #f8f9fa;
+			border-radius: 5px;
+			border-left: 3px dashed #dfe4e8;
+			margin: 0 0 10px;
+		}
+
+		/* ------------------------------------------------------
+		   7. RESPONSIVE
+		   ------------------------------------------------------ */
+		@media (max-width: 767px) {
+			.pub-shell { padding: 35px 0 45px; }
+			.pub-list > li {
+				padding: 16px 18px 16px 52px;
+				font-size: 14px;
+			}
+			.pub-list > li::before {
+				left: 15px;
+				top: 15px;
+				width: 24px;
+				height: 24px;
+				font-size: 11.5px;
+			}
+			.pub-heading-group h3 { font-size: 16px; }
+			.pub-heading-count { display: none; }
+		}
+	</style>
 
   </head> 
    
@@ -95,19 +392,12 @@
 			============================================= -->
 			<header id="header" class="medicom-header">
 			
-				<!-- Top Row
-				============================================= -->
-			
 				<div class="container">
-					
 					
 					<!-- Primary Navigation
 					============================================= -->
 					<nav class="navbar navbar-default" role="navigation">
 						
-							<!-- Brand and toggle get grouped for better mobile display
-							============================================= -->
-							
 							<div class="navbar-header">
 								
 								<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#primary-nav">
@@ -117,14 +407,12 @@
 								  <span class="icon-bar"></span>
 								</button>
 								
-								
 								<a class="navbar-brand" href="index.html" onclick="gohome()">
 									<img src="images/lab-logo.png" alt="" title="">
 								</a>
 							
 							</div>
 						
-							
 							<div class="collapse navbar-collapse navbar-right" id="primary-nav">
 								
 							<ul class="nav navbar-nav">
@@ -133,160 +421,12 @@
 									<li class=""><a href="People.html" >People</a></li>	
 									<li class=""><a href="research.html" >Research</a></li>	
 									<li class=""><a href="publications.html" >Publications</a></li>
-									<!-- <li class=""><a href="teaching.html" >Teaching</a></li> -->
 									<li class=""><a href="contact.html">Contact</a></li>
 									<li class="">
 										<a href=""  style="color:#F05A25" onclick="iith()">
 										<b>IITH Site</b></a></li>
 							</ul>
 							
-							    <!--ul class="nav navbar-nav">
-									
-									<li class="dropdown active">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Home</a>						
-										<ul class="dropdown-menu">                                                                                          
-											<li><a href="index.html">Home Page One <label>new</label></a></li>
-											<li><a href="index2.html">Home Page Two</a></li>
-											<li><a href="index3.html">Home Page Three</a></li>
-											<li><a href="index4.html">Home Page Four</a></li>
-											<li><a href="index5.html">Home Page Five <label>new</label></a></li>
-											<li><a href="index-loader.html">Home Page Loader <label>new</label></a></li>
-										</ul>
-									</li>
-									
-									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">About Us</a>
-										<ul class="dropdown-menu">                                                                                          
-										  <li><a href="about-us.html">About Us One</a></li>
-										  <li><a href="about-us2.html">About Us Two</a></li>
-										</ul>
-									</li>
-								  
-									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">pages</a>
-										<ul class="dropdown-menu">                                                                                          
-											<li><a href="patient-and-families.html">Patients &amp; Families</a></li>
-											<li class="dropdown-submenu"><a href="research.html">Research</a><i class="fa fa-angle-right pull-right"></i>
-												<ul class="dropdown-menu">                                                                                          
-													<li class="dropdown-submenu"><a href="#.">Medicome Trials</a><i class="fa fa-angle-right pull-right"></i>
-														<ul class="dropdown-menu">  
-														  <li><a href="trials.html">Trials</a></li>
-														</ul>
-													</li>
-													<li class="dropdown-submenu"><a href="#.">Cancer Care</a><i class="fa fa-angle-right pull-right"></i>
-														<ul class="dropdown-menu">  
-														  <li><a href="cancer-center.html">Cancer Center</a></li>
-														  <li><a href="cancer-center.html">Cell Death Research</a></li>
-														  <li><a href="cancer-center.html">Brain Cancer</a></li>
-														  <li><a href="cancer-center.html">Tumor Microenvironment</a></li>
-														  <li><a href="cancer-center.html">Breast Cancer</a></li>
-														  <li><a href="cancer-center.html">Childhood Cancers</a></li>
-														  <li><a href="cancer-center.html">Endocrine Cancers</a></li>
-														  <li><a href="cancer-center.html">Male Cancers</a></li>
-														  <li><a href="cancer-center.html">Skin Cancer </a></li>
-														</ul>
-													</li>
-													<li class="dropdown-submenu"><a href="#.">Childrens Health</a><i class="fa fa-angle-right pull-right"></i>
-														<ul class="dropdown-menu">  
-															<li><a href="children-health.html"> Genetic Disease</a></li>
-															<li><a href="children-health.html"> Growth &amp; Development</a></li>
-															<li><a href="children-health.html"> Infections</a></li>
-															<li><a href="children-health.html"> Pregnancy &amp; Baby</a></li>
-															<li><a href="children-health.html"> Nutrition &amp; Fitness</a></li>
-															<li><a href="children-health.html"> Emotions &amp; Behavior</a></li>
-															<li><a href="children-health.html"> Doctors &amp; Hospitals</a></li>
-															<li><a href="children-health.html"> Muscle Development</a></li>
-															<li><a href="children-health.html"> RNA Biology</a></li>
-														</ul>
-													</li>
-												</ul>
-											</li>
-											<li><a href="meet-team.html">Meet Awesome Team</a></li>
-											<li><a href="member-detail.html">Memmber Detail</a></li>
-											<li><a href="tables.html">Pricing Table</a></li>
-											<li><a href="appointment.html">Appointment</a></li>
-											<li class="dropdown-submenu"><a href="#">Portfolio</a><i class="fa fa-angle-right pull-right"></i>
-												<ul class="dropdown-menu">
-													<li><a href="gallery1.html">Portfolio one</a></li>
-													<li><a href="gallery2.html">Portfolio two</a></li>
-													<li><a href="gallery3.html">Portfolio three</a></li>
-												</ul>
-											</li>
-											<li><a href="services.html">Services</a></li>
-											<li><a href="shortcodes.html">Shortcodes</a></li>
-											<li><a href="error404.html">404 Not Found</a></li>
-										</ul>
-									</li>
-								  
-									<li class="mega-menu-item dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">DEPARTMENTS</a>
-										<div class="mega-menu dropdown-menu">
-											<img src="images/mega-menu-img.jpg" class="img-rounded" alt="" title="">
-											<ul>
-												<li><strong>Department One</strong></li>
-												<li><a href="medical-department.html">Medical Department</a></li>
-												<li><a href="medical-department.html">Body Lift Department</a></li>
-												<li><a href="medical-department.html">Liposuction Department</a></li>
-												<li><a href="medical-department.html">Eyelid Department</a></li>
-												<li><a href="medical-department.html">Thigh Lift Department</a></li>
-												<li><a href="medical-department.html">Brow Lift Department</a></li>
-											</ul>
-											<ul>
-												<li><strong>Department Two</strong></li>
-												<li><a href="medical-department.html">Arm Lift Department</a></li>
-												<li><a href="medical-department.html">Rhinoplasty Department</a></li>
-												<li><a href="medical-department.html">Ear Surgery Department</a></li>
-												<li><a href="medical-department.html">Tummy Tuck Department</a></li>
-												<li><a href="medical-department.html">Neck Lift Department</a></li>
-											</ul>
-											<ul>
-												<li><strong>Department Three</strong></li>
-												<li><a href="medical-department.html">Arm Lift Department</a></li>
-												<li><a href="medical-department.html">Rhinoplasty Department</a></li>
-												<li><a href="medical-department.html">Ear Surgery Department</a></li>
-												<li><a href="medical-department.html">Rhinoplasty Department</a></li>
-											</ul>
-										</div>
-									</li>
-								  
-									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Gallery</a>
-										<ul class="dropdown-menu">                                                                                          
-											<li><a href="gallery1.html">Gallery one</a></li>
-											<li><a href="gallery2.html">Gallery two</a></li>
-											<li><a href="gallery3.html">Gallery three</a></li>
-										</ul>
-									</li>
-								  
-									<li class="dropdown">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">blog</a>
-										<ul class="dropdown-menu">                                                                                          
-											<li><a href="blog.html">Blog one</a></li>
-											<li><a href="blog-single-post.html">Blog two</a></li>
-											<li><a href="blog-2-column.html">Blog three</a></li>
-											<li><a href="blog-detail.html">Blog Detail</a></li>
-										</ul>
-									</li>
-								  
-									<li class="dropdown last">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Shop</a>
-										<ul class="dropdown-menu">                                                                                          
-											<li><a href="shop.html">Shop</a></li>
-											<li><a href="shop-detail.html">Shop detail</a></li>
-											<li><a href="shopping-cart.html">Shoping cart</a></li>
-										</ul>
-									</li>
-								  
-									<li class="dropdown last">
-										<a href="#" class="dropdown-toggle" data-toggle="dropdown">Contact Us</a>
-										<ul class="dropdown-menu">                                                                                          
-											<li><a href="contact-us.html">Contact Us one</a></li>
-											<li><a href="contact-us2.html">Contact Us two</a></li>
-										</ul>
-									</li>
-								  
-								</ul-->
-								
 							</div>
 							
 						</nav>
@@ -305,264 +445,297 @@
 				
 				<div class="container">
 					<h1 class="entry-title">Publications</h1>
-					<!--p>Etharums ser quidem rerum facilis dolores nemis omnis fugats vitaes nemo minima rerums unsers sadips amets.</p-->
 				</div>
 				
 		</section>
 
-        <!-- Research  list
+        <!-- Research list
 			============================================= -->
             <div id="sub-page-content" class="clearfix">
 
+                <div class="pub-shell">
 
-                    <!-- Publicaitons
-				============================================= -->
                     <div class="container big-font">
 
                         <h2 class="light bordered main-title"><span>Publications</span></h2>
-                        
-                       <ol style="list-style-type:square;">
 
-						<li> Kumar, A., Kumar, A. D., Sannamath, S., & Kumar, N. (2026, in Press). Contextual Cues and Transition Statistics Drive Expression of Competing Motor Memories. <i>iScience</i>. </li>
-
-
-
-
-						<li> Verma, A. K., Kumar, A. D., Chivukula, U., & Kumar, N. (2026). Dissociable Causal Roles of Right Frontoparietal Nodes in Automatic Alcohol Approach–Avoidance Tendencies. <i>bioRxiv</i>. https://doi.org/10.64898/2026.04.19.719365 <a href="https://doi.org/10.64898/2026.04.19.719365" target="_blank" style="color:red;">[Full Article] </a> </li>
-
-						<li> Pal, R., Yadav, G., & Kumar, N. (2026). Engaging working memory following skill reactivation has implications for interlimb skill generalization. <i>bioRxiv</i>. https://doi.org/10.64898/2026.05.11.724282 <a href="https://doi.org/10.64898/2026.05.11.724282" target="_blank" style="color:red;">[Full Article] </a> </li>
-
-						<li> Kumar, A. D., Kumar, A., & Kumar, N. (2026). Consolidation Separates Implicit and Explicit Components of Compound Motor Memories. <i>bioRxiv</i>. https://doi.org/10.64898/2026.04.15.718660 <a href="https://doi.org/10.64898/2026.04.15.718660" target="_blank" style="color:red;">[Full Article] </a> </li>
-
-						<li> Verma, A. K., Kumar, A. D., Chivukula, U., & Kumar, N. (2026). Modulation of Automatic Alcohol Approach Tendencies using Single-Session 10 Hz rTMS over the Right dLPFC. <i>bioRxiv</i>. https://doi.org/10.64898/2026.04.09.717508 <a href="https://doi.org/10.64898/2026.04.09.717508" target="_blank" style="color:red;">[Full Article] </a> </li>
-
-						<li> Verma, A. K., Chivukula, U., Garbusow, M., & Kumar, N. (2025). Counterconditioning Alcohol Cues: Neural and Behavioral Modulation of Automatic Tendencies and Pavlovian-to-Instrumental Transfer in Male Alcohol Users. <i>bioRxiv</i>. https://doi.org/10.1101/2025.11.10.687519. <a href="https://doi.org/10.1101/2025.11.10.687519" target="_blank" style="color:red;">[Full Article] </a> </li>
-
-
-
-					
-
-						<li> Verma, A. K., Kumar, A. D., Chivukula, U., & Kumar, N. (2025). Neural mechanisms underlying approach and avoidance tendencies in alcohol use among males: An electrophysiological investigation. <i>Biological Psychology</i>, 202, 109144. https://doi.org/10.1016/j.biopsycho.2025.109144. <a href="https://doi.org/10.1016/j.biopsycho.2025.109144" target="_blank" style="color:red;">[Full Article] </a> </li>
-
-
-
-						<li> Kumar, A. D., Kumar, A., & Kumar, N. (2025). Interaction between Model-based and Model-free Mechanisms in Motor Learning. <i>Journal of Neurophysiology</i>. https://doi.org/10.1152/jn.00219.2025. <a href="https://journals.physiology.org/doi/abs/10.1152/jn.00219.2025?rfr_dat=cr_pub++0pubmed&url_ver=Z39.88-2003&rfr_id=ori%3Arid%3Acrossref.org" target="_blank" style="color:red;">[Full Article] </a> </li>
-
-
-
-						<li> Kundal, K., Rani, K. D., Kumar, N., & Kumar, R. (2025). RadGLO: an interactive platform for radiomic feature analysis and prognostic modeling in glioma. <i>npj Precision Oncology</i>. 9(1), 323 https://doi.org/10.1152/jn.00219.2025. <a href="https://www.nature.com/articles/s41698-025-01124-z#citeas" target="_blank" style="color:red;">[Full Article] </a> </li>
-
-
-
-
-
-						<li> Kundal, K., Kumar, N., & Kumar, R. (2025). Tumor location, genomic alterations, and radiomic features as predictors of survival in glioblastoma: a Multi-Modal analysis. <i>Neuroradiology</i>. https://doi.org/10.1007/s00234-025-03742-7. <a href="https://link.springer.com/article/10.1007/s00234-025-03742-7" target="_blank" style="color:red;">[Full Article] </a> </li>
-
-
-
-
-
-
-
-						<li> Shingane, S. N., Rao, N., Kumar, N., & Mutha, P. K. (2025). Task relevance selectively modulates sensorimotor adaptation in the presence of multiple prediction errors. <i>Journal of Neurophysiology</i>, 134(5), 1607–1618. https://doi.org/10.1152/jn.00511.2024. <a href="https://doi.org/10.1152/jn.00511.2024" target="_blank" style="color:red;">[Full Article] </a> </li>
-
-
-
-
-
-
-
-						<li> Yadav, G., Pal, R., Matkar, S., & Kumar, N. (2025). Role of working memory in interlimb generalization of newly learned skills. <i>Scientific Reports</i>, 15(1). https://doi.org/10.1038/s41598-025-88997-z <a href="https://doi.org/10.1038/s41598-025-88997-z" target="_blank" style="color:red;">[Full Article] </a> </li>
-
-
-
-						<li> Kumar, N., & Sunny, M. (2024). Attention Capture by Action Effects are Driven by Prediction Error Minimization. <i>psyArXiv</i>, https://doi.org/10.31234/osf.io/86ryu <a href="" target="_blank" style="color:red;">[Full Article] </a> </li>
-
-
-
-						<li> Verma, A. K., Kumar, A. D., Chivukula, U., & Kumar, N. (2024). Effect of Automatic Approach Tendency on Neural Dynamics in Heavy Drinkers: an ERP Study. <i>Archives of Clinical Neuropsychology</i>, 39(7), 1107–1107. https://doi.org/10.1093/arclin/acae067.179 <a href="https://doi.org/10.1093/arclin/acae067.179" target="_blank" style="color:red;">[Full Article] </a> </li>
-
-
-
-						<li> Sharma, S., Kundal, K., Chandok, I.K., Kumar, N., & Kumar, R.  (2024). 
-
-							Radiomic based investigation of a potential link between precuneus and fusiform gyrus with Alzheimer’s disease. <i>medRxiv</i>, 2024-05. <a href="https://www.medrxiv.org/content/10.1101/2024.05.15.24307407v1" target="_blank" style="color:red;">[Full Article] </a> </li>
-
-
-
-						<li> Kundal, K., Rao, K. V., Majumdar, A., Kumar, N., & Kumar, R.  (2024). 
-
-							Comprehensive Benchmarking of CNN-Based Tumor Segmentation Methods Using Multimodal MRI Data. <i>Computers in Biology and Medicine,</i>, 178(24), 108799. <a href="https://www.medrxiv.org/content/10.1101/2024.01.22.24301602v1" target="_blank" style="color:red;">[Full Article] </a> </li>
-
-
-
-						  <li> Kumar, N., Sidarta, A., Smith, C., & Ostry, D. J. (2022). 
-
-							Ventrolateral Prefrontal Cortex Contributes to Human Motor Learning. <i>Eneuro</i>, 9(5). <a href="https://www.eneuro.org/content/eneuro/9/5/ENEURO.0269-22.2022.full.pdf" target="_blank" style="color:red;">[Full Article] </a> </li>
-
-
-
-					      <li>Kumar, N., Van Vugt, F. & Ostry, D. J. (2021). Recognition memory for 
-
-							human motor learning. <i>Current Biology</i>, 31(8), 1678-1686. <a href="https://www.sciencedirect.com/science/article/pii/S0960982221001627" target="_blank" style="color:red;">[Full Article]</a></li>
-
-						  
-
-						  <li>Kumar, N., Manning, T. F., & Ostry, D. J. (2019). Somatosensory 
-
-								cortex participates in the consolidation of human motor memory. <i>PLoS biology </i>, 17(10). <a href="https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3000469" target="_blank" style="color:red;">[Full Article]</a></li>
-
-							
-
-						  <li>Kumar, N., Kumar, A., Sonane, B., & Mutha, P. K. (2018). Interference 
-
-							between competing motor memories developed through learning with different limbs. 
-
-							<i>Journal of Neurophysiology</i>, 120, 1061–1073. <a href="https://journals.physiology.org/doi/pdf/10.1152/jn.00905.2017" target="_blank" style="color:red;">[Full Article]</a></li>
-
-							
-
-						  <li>Mukherjee, S., Srinivasan, N., Kumar, N., & Manjaly, J. A. (2018). Perceptual 
-
-								broadening leads to more prosociality. <i>Frontiers in Psychology</i>, 9. <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2018.01821/full" target="_blank" style="color:red;">[Full Article]</a></li>
-
-							
-
-						  <li>Kumar, N., & Mutha, P. K. (2016). Adaptive reliance on the most stable sensory 
-
-							predictions enhances perceptual feature extraction of moving stimuli. <i>Journal of 
-
-							Neurophysiology </i>, 115(3), 1654-1663. <a href="https://journals.physiology.org/doi/full/10.1152/jn.00850.2015?view=long&pmid=26823516" target="_blank" style="color:red;">[Full Article]</a></li>
-
-							
-
-						  <li>Kumar, N., Manjaly, J.A. & Sunny, M.M. (2015). The relationship between action-effect 
-
-								monitoring and attention capture. <i>Journal of Experimental Psychology: General </i>. 144(1), 
-
-								18-23. <a href="#" target="_blank" style="color:red;">[Full Article]</a></li>
-
-							
-
-						  <li>Kumar, N., Manjaly, J. A., & Miyapuram, K. P. (2014). Feedback about action 
-
-							performed can alter the sense of self-agency. <i>Frontiers in Psychology </i>, 5. <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2014.00145/full" target="_blank" style="color:red;">[Full Article]</a></li>
-
-							
-
-						  
-						</ol>
+                        <!-- ============ YEAR TABS ============ -->
+                        <div class="pub-tabs" id="pub-year-tabs">
+
+                            <ul class="pub-tab-list">
+                                <li><a href="#pub-all" class="pub-tab-link active">All</a></li>
+                                <li><a href="#pub-2026" class="pub-tab-link">2026</a></li>
+                                <li><a href="#pub-2025" class="pub-tab-link">2025</a></li>
+                                <li><a href="#pub-2024" class="pub-tab-link">2024</a></li>
+                                <li><a href="#pub-2022" class="pub-tab-link">2022</a></li>
+                                <li><a href="#pub-2021" class="pub-tab-link">2021</a></li>
+                                <li><a href="#pub-before-2020" class="pub-tab-link">Before 2020</a></li>
+                            </ul>
+
+                            <div class="pub-tab-panes">
+
+                                <!-- ==================== ALL ==================== -->
+                                <div class="pub-pane active" id="pub-all">
+
+                                    <div class="pub-heading-group">
+                                        <span class="pub-heading-icon"><i class="fa fa-check-circle"></i></span>
+                                        <h3>Peer-Reviewed</h3>
+                                        <span class="pub-heading-count">19 articles</span>
+                                    </div>
+                                    <ul class="pub-list">
+                                        <li> Kumar, A., Kumar, A. D., Sannamath, S., &amp; Kumar, N. (2026). Contextual Cues and Transition Statistics Drive Expression of Competing Motor Memories. <i>iScience</i>. 29(7). <a href="https://www.cell.com/iscience/fulltext/S2589-0042(26)01656-1" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Verma, A. K., Kumar, A. D., Chivukula, U., &amp; Kumar, N. (2026). Modulation of Automatic Alcohol Approach Tendencies using Single-Session 10 Hz rTMS over the Right dLPFC in Males. <i>Drug and Alcohol Dependence</i>, 113291. <a href="https://www.sciencedirect.com/science/article/pii/S0376871626002723" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Verma, A. K., Kumar, A. D., Chivukula, U., &amp; Kumar, N. (2025). Neural mechanisms underlying approach and avoidance tendencies in alcohol use among males: An electrophysiological investigation. <i>Biological Psychology</i>, 202, 109144. https://doi.org/10.1016/j.biopsycho.2025.109144. <a href="https://doi.org/10.1016/j.biopsycho.2025.109144" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Kumar, A. D., Kumar, A., &amp; Kumar, N. (2025). Interaction between Model-based and Model-free Mechanisms in Motor Learning. <i>Journal of Neurophysiology</i>. https://doi.org/10.1152/jn.00219.2025. <a href="https://journals.physiology.org/doi/abs/10.1152/jn.00219.2025?rfr_dat=cr_pub++0pubmed&amp;url_ver=Z39.88-2003&amp;rfr_id=ori%3Arid%3Acrossref.org" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Kundal, K., Rani, K. D., Kumar, N., &amp; Kumar, R. (2025). RadGLO: an interactive platform for radiomic feature analysis and prognostic modeling in glioma. <i>npj Precision Oncology</i>. 9(1), 323 https://doi.org/10.1152/jn.00219.2025. <a href="https://www.nature.com/articles/s41698-025-01124-z#citeas" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Kundal, K., Kumar, N., &amp; Kumar, R. (2025). Tumor location, genomic alterations, and radiomic features as predictors of survival in glioblastoma: a Multi-Modal analysis. <i>Neuroradiology</i>. https://doi.org/10.1007/s00234-025-03742-7. <a href="https://link.springer.com/article/10.1007/s00234-025-03742-7" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Shingane, S. N., Rao, N., Kumar, N., &amp; Mutha, P. K. (2025). Task relevance selectively modulates sensorimotor adaptation in the presence of multiple prediction errors. <i>Journal of Neurophysiology</i>, 134(5), 1607&ndash;1618. https://doi.org/10.1152/jn.00511.2024. <a href="https://doi.org/10.1152/jn.00511.2024" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Yadav, G., Pal, R., Matkar, S., &amp; Kumar, N. (2025). Role of working memory in interlimb generalization of newly learned skills. <i>Scientific Reports</i>, 15(1). https://doi.org/10.1038/s41598-025-88997-z <a href="https://doi.org/10.1038/s41598-025-88997-z" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Verma, A. K., Kumar, A. D., Chivukula, U., &amp; Kumar, N. (2024). Effect of Automatic Approach Tendency on Neural Dynamics in Heavy Drinkers: an ERP Study. <i>Archives of Clinical Neuropsychology</i>, 39(7), 1107&ndash;1107. https://doi.org/10.1093/arclin/acae067.179 <a href="https://doi.org/10.1093/arclin/acae067.179" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Kundal, K., Rao, K. V., Majumdar, A., Kumar, N., &amp; Kumar, R. (2024). Comprehensive Benchmarking of CNN-Based Tumor Segmentation Methods Using Multimodal MRI Data. <i>Computers in Biology and Medicine,</i>, 178(24), 108799. <a href="https://www.medrxiv.org/content/10.1101/2024.01.22.24301602v1" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Kumar, N., Sidarta, A., Smith, C., &amp; Ostry, D. J. (2022). Ventrolateral Prefrontal Cortex Contributes to Human Motor Learning. <i>Eneuro</i>, 9(5). <a href="https://www.eneuro.org/content/eneuro/9/5/ENEURO.0269-22.2022.full.pdf" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Kumar, N., Van Vugt, F. &amp; Ostry, D. J. (2021). Recognition memory for human motor learning. <i>Current Biology</i>, 31(8), 1678-1686. <a href="https://www.sciencedirect.com/science/article/pii/S0960982221001627" target="_blank" style="color:red;">[Full Article]</a></li>
+                                        <li> Kumar, N., Manning, T. F., &amp; Ostry, D. J. (2019). Somatosensory cortex participates in the consolidation of human motor memory. <i>PLoS biology </i>, 17(10). <a href="https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3000469" target="_blank" style="color:red;">[Full Article]</a></li>
+                                        <li> Kumar, N., Kumar, A., Sonane, B., &amp; Mutha, P. K. (2018). Interference between competing motor memories developed through learning with different limbs. <i>Journal of Neurophysiology</i>, 120, 1061&ndash;1073. <a href="https://journals.physiology.org/doi/pdf/10.1152/jn.00905.2017" target="_blank" style="color:red;">[Full Article]</a></li>
+                                        <li> Mukherjee, S., Srinivasan, N., Kumar, N., &amp; Manjaly, J. A. (2018). Perceptual broadening leads to more prosociality. <i>Frontiers in Psychology</i>, 9. <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2018.01821/full" target="_blank" style="color:red;">[Full Article]</a></li>
+                                        <li> Kumar, N., &amp; Mutha, P. K. (2016). Adaptive reliance on the most stable sensory predictions enhances perceptual feature extraction of moving stimuli. <i>Journal of Neurophysiology </i>, 115(3), 1654-1663. <a href="https://journals.physiology.org/doi/full/10.1152/jn.00850.2015?view=long&amp;pmid=26823516" target="_blank" style="color:red;">[Full Article]</a></li>
+                                        <li> Kumar, N., Manjaly, J.A. &amp; Sunny, M.M. (2015). The relationship between action-effect monitoring and attention capture. <i>Journal of Experimental Psychology: General </i>. 144(1), 18-23. <a href="#" target="_blank" style="color:red;">[Full Article]</a></li>
+                                        <li> Mukherjee, S., Manjaly, J. A. &amp; Kumar, N. (2015). Role of money in creative cognition. In J. A. Manjaly &amp; B. Indurkhya (Eds.), <i>Cognition, Experience &amp; Creativity</i>. New Delhi: Orient Blackswan. </li>
+                                        <li> Kumar, N., Manjaly, J. A., &amp; Miyapuram, K. P. (2014). Feedback about action performed can alter the sense of self-agency. <i>Frontiers in Psychology </i>, 5. <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2014.00145/full" target="_blank" style="color:red;">[Full Article]</a></li>
+                                    </ul>
+
+                                    <div class="pub-heading-group preprint-heading">
+                                        <span class="pub-heading-icon"><i class="fa fa-file-text-o"></i></span>
+                                        <h3>Preprints</h3>
+                                        <span class="pub-heading-count">8 articles</span>
+                                    </div>
+                                    <ul class="pub-list preprint-list">
+                                        <li> Verma, A. K., Kumar, A. D., Chivukula, U., &amp; Kumar, N. (2026). Dissociable Causal Roles of Right Frontoparietal Nodes in Automatic Alcohol Approach&ndash;Avoidance Tendencies. <i>bioRxiv</i>. https://doi.org/10.64898/2026.04.19.719365 <a href="https://doi.org/10.64898/2026.04.19.719365" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Pal, R., Yadav, G., &amp; Kumar, N. (2026). Engaging working memory following skill reactivation has implications for interlimb skill generalization. <i>bioRxiv</i>. https://doi.org/10.64898/2026.05.11.724282 <a href="https://doi.org/10.64898/2026.05.11.724282" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Kumar, A. D., Kumar, A., &amp; Kumar, N. (2026). Consolidation Separates Implicit and Explicit Components of Compound Motor Memories. <i>bioRxiv</i>. https://doi.org/10.64898/2026.04.15.718660 <a href="https://doi.org/10.64898/2026.04.15.718660" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Verma, A. K., Kumar, A. D., Chivukula, U., &amp; Kumar, N. (2026). Modulation of Automatic Alcohol Approach Tendencies using Single-Session 10 Hz rTMS over the Right dLPFC. <i>bioRxiv</i>. https://doi.org/10.64898/2026.04.09.717508 <a href="https://doi.org/10.64898/2026.04.09.717508" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Sannamath, S., Kaur, R., Kumar, A. D., Kumar, A., &amp; Kumar, N. (2026). Contextual Inference Drives Motor Memory Protection and Disruption. <i>bioRxiv</i>, 2026-08. <a href="https://www.biorxiv.org/content/10.64898/2026.08.25.746912v1.abstract" target="_blank" style="color:red;">[Full Article] </a></li>
+                                        <li> Verma, A. K., Chivukula, U., Garbusow, M., &amp; Kumar, N. (2025). Counterconditioning Alcohol Cues: Neural and Behavioral Modulation of Automatic Tendencies and Pavlovian-to-Instrumental Transfer in Male Alcohol Users. <i>bioRxiv</i>. https://doi.org/10.1101/2025.11.10.687519. <a href="https://doi.org/10.1101/2025.11.10.687519" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Kumar, N., &amp; Sunny, M. (2024). Attention Capture by Action Effects are Driven by Prediction Error Minimization. <i>psyArXiv</i>, https://doi.org/10.31234/osf.io/86ryu <a href="https://doi.org/10.31234/osf.io/86ryu" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Sharma, S., Kundal, K., Chandok, I.K., Kumar, N., &amp; Kumar, R. (2024). Radiomic based investigation of a potential link between precuneus and fusiform gyrus with Alzheimer&rsquo;s disease. <i>medRxiv</i>, 2024-05. <a href="https://www.medrxiv.org/content/10.1101/2024.05.15.24307407v1" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                    </ul>
+
+                                </div>
+                                <!-- ================== /ALL ==================== -->
+
+
+                                <!-- ==================== 2026 ==================== -->
+                                <div class="pub-pane" id="pub-2026">
+
+                                    <div class="pub-heading-group">
+                                        <span class="pub-heading-icon"><i class="fa fa-check-circle"></i></span>
+                                        <h3>Peer-Reviewed</h3>
+                                        <span class="pub-heading-count">2 articles</span>
+                                    </div>
+                                    <ul class="pub-list">
+                                        <li> Kumar, A., Kumar, A. D., Sannamath, S., &amp; Kumar, N. (2026). Contextual Cues and Transition Statistics Drive Expression of Competing Motor Memories. <i>iScience</i>, 29(7). <a href="https://www.cell.com/iscience/fulltext/S2589-0042(26)01656-1" target="_blank" style="color:red;">[Full Article] </a>  </li>
+                                        <li> Verma, A. K., Kumar, A. D., Chivukula, U., &amp; Kumar, N. (2026). Modulation of Automatic Alcohol Approach Tendencies using Single-Session 10 Hz rTMS over the Right dLPFC in Males. <i>Drug and Alcohol Dependence</i>, 113291. <a href="https://www.sciencedirect.com/science/article/pii/S0376871626002723" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                    </ul>
+
+                                    <div class="pub-heading-group preprint-heading">
+                                        <span class="pub-heading-icon"><i class="fa fa-file-text-o"></i></span>
+                                        <h3>Preprints</h3>
+                                        <span class="pub-heading-count">5 articles</span>
+                                    </div>
+                                    <ul class="pub-list preprint-list">
+                                        <li> Verma, A. K., Kumar, A. D., Chivukula, U., &amp; Kumar, N. (2026). Dissociable Causal Roles of Right Frontoparietal Nodes in Automatic Alcohol Approach&ndash;Avoidance Tendencies. <i>bioRxiv</i>. https://doi.org/10.64898/2026.04.19.719365 <a href="https://doi.org/10.64898/2026.04.19.719365" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Pal, R., Yadav, G., &amp; Kumar, N. (2026). Engaging working memory following skill reactivation has implications for interlimb skill generalization. <i>bioRxiv</i>. https://doi.org/10.64898/2026.05.11.724282 <a href="https://doi.org/10.64898/2026.05.11.724282" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Kumar, A. D., Kumar, A., &amp; Kumar, N. (2026). Consolidation Separates Implicit and Explicit Components of Compound Motor Memories. <i>bioRxiv</i>. https://doi.org/10.64898/2026.04.15.718660 <a href="https://doi.org/10.64898/2026.04.15.718660" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Verma, A. K., Kumar, A. D., Chivukula, U., &amp; Kumar, N. (2026). Modulation of Automatic Alcohol Approach Tendencies using Single-Session 10 Hz rTMS over the Right dLPFC. <i>bioRxiv</i>. https://doi.org/10.64898/2026.04.09.717508 <a href="https://doi.org/10.64898/2026.04.09.717508" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Sannamath, S., Kaur, R., Kumar, A. D., Kumar, A., &amp; Kumar, N. (2026). Contextual Inference Drives Motor Memory Protection and Disruption. <i>bioRxiv</i>, 2026-08. <a href="https://www.biorxiv.org/content/10.64898/2026.08.25.746912v1.abstract" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                    </ul>
+
+                                </div>
+                                <!-- ================== /2026 ==================== -->
+
+
+                                <!-- ==================== 2025 ==================== -->
+                                <div class="pub-pane" id="pub-2025">
+
+                                    <div class="pub-heading-group">
+                                        <span class="pub-heading-icon"><i class="fa fa-check-circle"></i></span>
+                                        <h3>Peer-Reviewed</h3>
+                                        <span class="pub-heading-count">6 articles</span>
+                                    </div>
+                                    <ul class="pub-list">
+                                        <li> Verma, A. K., Kumar, A. D., Chivukula, U., &amp; Kumar, N. (2025). Neural mechanisms underlying approach and avoidance tendencies in alcohol use among males: An electrophysiological investigation. <i>Biological Psychology</i>, 202, 109144. https://doi.org/10.1016/j.biopsycho.2025.109144. <a href="https://doi.org/10.1016/j.biopsycho.2025.109144" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Kumar, A. D., Kumar, A., &amp; Kumar, N. (2025). Interaction between Model-based and Model-free Mechanisms in Motor Learning. <i>Journal of Neurophysiology</i>. https://doi.org/10.1152/jn.00219.2025. <a href="https://journals.physiology.org/doi/abs/10.1152/jn.00219.2025?rfr_dat=cr_pub++0pubmed&amp;url_ver=Z39.88-2003&amp;rfr_id=ori%3Arid%3Acrossref.org" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Kundal, K., Rani, K. D., Kumar, N., &amp; Kumar, R. (2025). RadGLO: an interactive platform for radiomic feature analysis and prognostic modeling in glioma. <i>npj Precision Oncology</i>. 9(1), 323 https://doi.org/10.1152/jn.00219.2025. <a href="https://www.nature.com/articles/s41698-025-01124-z#citeas" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Kundal, K., Kumar, N., &amp; Kumar, R. (2025). Tumor location, genomic alterations, and radiomic features as predictors of survival in glioblastoma: a Multi-Modal analysis. <i>Neuroradiology</i>. https://doi.org/10.1007/s00234-025-03742-7. <a href="https://link.springer.com/article/10.1007/s00234-025-03742-7" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Shingane, S. N., Rao, N., Kumar, N., &amp; Mutha, P. K. (2025). Task relevance selectively modulates sensorimotor adaptation in the presence of multiple prediction errors. <i>Journal of Neurophysiology</i>, 134(5), 1607&ndash;1618. https://doi.org/10.1152/jn.00511.2024. <a href="https://doi.org/10.1152/jn.00511.2024" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Yadav, G., Pal, R., Matkar, S., &amp; Kumar, N. (2025). Role of working memory in interlimb generalization of newly learned skills. <i>Scientific Reports</i>, 15(1). https://doi.org/10.1038/s41598-025-88997-z <a href="https://doi.org/10.1038/s41598-025-88997-z" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                    </ul>
+
+                                    <div class="pub-heading-group preprint-heading">
+                                        <span class="pub-heading-icon"><i class="fa fa-file-text-o"></i></span>
+                                        <h3>Preprints</h3>
+                                        <span class="pub-heading-count">1 article</span>
+                                    </div>
+                                    <ul class="pub-list preprint-list">
+                                        <li> Verma, A. K., Chivukula, U., Garbusow, M., &amp; Kumar, N. (2025). Counterconditioning Alcohol Cues: Neural and Behavioral Modulation of Automatic Tendencies and Pavlovian-to-Instrumental Transfer in Male Alcohol Users. <i>bioRxiv</i>. https://doi.org/10.1101/2025.11.10.687519. <a href="https://doi.org/10.1101/2025.11.10.687519" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                    </ul>
+
+                                </div>
+                                <!-- ================== /2025 ==================== -->
+
+
+                                <!-- ==================== 2024 ==================== -->
+                                <div class="pub-pane" id="pub-2024">
+
+                                    <div class="pub-heading-group">
+                                        <span class="pub-heading-icon"><i class="fa fa-check-circle"></i></span>
+                                        <h3>Peer-Reviewed</h3>
+                                        <span class="pub-heading-count">2 articles</span>
+                                    </div>
+                                    <ul class="pub-list">
+                                        <li> Verma, A. K., Kumar, A. D., Chivukula, U., &amp; Kumar, N. (2024). Effect of Automatic Approach Tendency on Neural Dynamics in Heavy Drinkers: an ERP Study. <i>Archives of Clinical Neuropsychology</i>, 39(7), 1107&ndash;1107. https://doi.org/10.1093/arclin/acae067.179 <a href="https://doi.org/10.1093/arclin/acae067.179" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Kundal, K., Rao, K. V., Majumdar, A., Kumar, N., &amp; Kumar, R. (2024). Comprehensive Benchmarking of CNN-Based Tumor Segmentation Methods Using Multimodal MRI Data. <i>Computers in Biology and Medicine,</i>, 178(24), 108799. <a href="https://www.medrxiv.org/content/10.1101/2024.01.22.24301602v1" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                    </ul>
+
+                                    <div class="pub-heading-group preprint-heading">
+                                        <span class="pub-heading-icon"><i class="fa fa-file-text-o"></i></span>
+                                        <h3>Preprints</h3>
+                                        <span class="pub-heading-count">2 articles</span>
+                                    </div>
+                                    <ul class="pub-list preprint-list">
+                                        <li> Kumar, N., &amp; Sunny, M. (2024). Attention Capture by Action Effects are Driven by Prediction Error Minimization. <i>psyArXiv</i>, https://doi.org/10.31234/osf.io/86ryu <a href="https://doi.org/10.31234/osf.io/86ryu" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                        <li> Sharma, S., Kundal, K., Chandok, I.K., Kumar, N., &amp; Kumar, R. (2024). Radiomic based investigation of a potential link between precuneus and fusiform gyrus with Alzheimer&rsquo;s disease. <i>medRxiv</i>, 2024-05. <a href="https://www.medrxiv.org/content/10.1101/2024.05.15.24307407v1" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                    </ul>
+
+                                </div>
+                                <!-- ================== /2024 ==================== -->
+
+
+                                <!-- ==================== 2022 ==================== -->
+                                <div class="pub-pane" id="pub-2022">
+
+                                    <div class="pub-heading-group">
+                                        <span class="pub-heading-icon"><i class="fa fa-check-circle"></i></span>
+                                        <h3>Peer-Reviewed</h3>
+                                        <span class="pub-heading-count">1 article</span>
+                                    </div>
+                                    <ul class="pub-list">
+                                        <li> Kumar, N., Sidarta, A., Smith, C., &amp; Ostry, D. J. (2022). Ventrolateral Prefrontal Cortex Contributes to Human Motor Learning. <i>Eneuro</i>, 9(5). <a href="https://www.eneuro.org/content/eneuro/9/5/ENEURO.0269-22.2022.full.pdf" target="_blank" style="color:red;">[Full Article] </a> </li>
+                                    </ul>
+
+                                    <div class="pub-heading-group preprint-heading">
+                                        <span class="pub-heading-icon"><i class="fa fa-file-text-o"></i></span>
+                                        <h3>Preprints</h3>
+                                        <span class="pub-heading-count">0 articles</span>
+                                    </div>
+                                    <p class="pub-empty">No preprints recorded for this year.</p>
+
+                                </div>
+                                <!-- ================== /2022 ==================== -->
+
+
+                                <!-- ==================== 2021 ==================== -->
+                                <div class="pub-pane" id="pub-2021">
+
+                                    <div class="pub-heading-group">
+                                        <span class="pub-heading-icon"><i class="fa fa-check-circle"></i></span>
+                                        <h3>Peer-Reviewed</h3>
+                                        <span class="pub-heading-count">1 article</span>
+                                    </div>
+                                    <ul class="pub-list">
+                                        <li> Kumar, N., Van Vugt, F. &amp; Ostry, D. J. (2021). Recognition memory for human motor learning. <i>Current Biology</i>, 31(8), 1678-1686. <a href="https://www.sciencedirect.com/science/article/pii/S0960982221001627" target="_blank" style="color:red;">[Full Article]</a></li>
+                                    </ul>
+
+                                    <div class="pub-heading-group preprint-heading">
+                                        <span class="pub-heading-icon"><i class="fa fa-file-text-o"></i></span>
+                                        <h3>Preprints</h3>
+                                        <span class="pub-heading-count">0 articles</span>
+                                    </div>
+                                    <p class="pub-empty">No preprints recorded for this year.</p>
+
+                                </div>
+                                <!-- ================== /2021 ==================== -->
+
+
+                                <!-- ================= BEFORE 2020 ================== -->
+                                <div class="pub-pane" id="pub-before-2020">
+
+                                    <div class="pub-heading-group">
+                                        <span class="pub-heading-icon"><i class="fa fa-check-circle"></i></span>
+                                        <h3>Peer-Reviewed</h3>
+                                        <span class="pub-heading-count">7 articles</span>
+                                    </div>
+                                    <ul class="pub-list">
+                                        <li> Kumar, N., Manning, T. F., &amp; Ostry, D. J. (2019). Somatosensory cortex participates in the consolidation of human motor memory. <i>PLoS biology </i>, 17(10). <a href="https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3000469" target="_blank" style="color:red;">[Full Article]</a></li>
+                                        <li> Kumar, N., Kumar, A., Sonane, B., &amp; Mutha, P. K. (2018). Interference between competing motor memories developed through learning with different limbs. <i>Journal of Neurophysiology</i>, 120, 1061&ndash;1073. <a href="https://journals.physiology.org/doi/pdf/10.1152/jn.00905.2017" target="_blank" style="color:red;">[Full Article]</a></li>
+                                        <li> Mukherjee, S., Srinivasan, N., Kumar, N., &amp; Manjaly, J. A. (2018). Perceptual broadening leads to more prosociality. <i>Frontiers in Psychology</i>, 9. <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2018.01821/full" target="_blank" style="color:red;">[Full Article]</a></li>
+                                        <li> Kumar, N., &amp; Mutha, P. K. (2016). Adaptive reliance on the most stable sensory predictions enhances perceptual feature extraction of moving stimuli. <i>Journal of Neurophysiology </i>, 115(3), 1654-1663. <a href="https://journals.physiology.org/doi/full/10.1152/jn.00850.2015?view=long&amp;pmid=26823516" target="_blank" style="color:red;">[Full Article]</a></li>
+                                        <li> Kumar, N., Manjaly, J.A. &amp; Sunny, M.M. (2015). The relationship between action-effect monitoring and attention capture. <i>Journal of Experimental Psychology: General </i>. 144(1), 18-23. <a href="#" target="_blank" style="color:red;">[Full Article]</a></li>
+                                        <li> Mukherjee, S., Manjaly, J. A. &amp; Kumar, N. (2015). Role of money in creative cognition. In J. A. Manjaly &amp; B. Indurkhya (Eds.), <i>Cognition, Experience &amp; Creativity</i>. New Delhi: Orient Blackswan. </li>
+                                        <li> Kumar, N., Manjaly, J. A., &amp; Miyapuram, K. P. (2014). Feedback about action performed can alter the sense of self-agency. <i>Frontiers in Psychology </i>, 5. <a href="https://www.frontiersin.org/articles/10.3389/fpsyg.2014.00145/full" target="_blank" style="color:red;">[Full Article]</a></li>
+                                    </ul>
+
+                                    <div class="pub-heading-group preprint-heading">
+                                        <span class="pub-heading-icon"><i class="fa fa-file-text-o"></i></span>
+                                        <h3>Preprints</h3>
+                                        <span class="pub-heading-count">0 articles</span>
+                                    </div>
+                                    <p class="pub-empty">No preprints recorded for this period.</p>
+
+                                </div>
+                                <!-- ================ /BEFORE 2020 ================= -->
+
+                            </div>
+                        </div>
+                        <!-- ============ /YEAR TABS ============ -->
 						
                     </div>
 
-					<!-- Journals
-				============================================= -->
-					<!-- <div class="container big-font">
-
-						<h2 class="light bordered main-title"><span>Journals</span></h2>
-
-						<ol>
-						<li>Etharums ser quidem rerum facilis dolores nemis omnis fugats vitaes nemo minima rerums unsers sadips amets. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore.</li>
-						<li>Etharums ser quidem rerum facilis dolores nemis omnis fugats vitaes nemo minima rerums unsers sadips amets. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore.</li>
-						</ol>
-
-					</div> -->
+                </div><!-- /.pub-shell -->
 
 
-					<!-- conference
-				============================================= -->
-					<div class="container big-font">
+                <!-- conference
+                ============================================= -->
+                <div class="container big-font" style="margin-top:50px;">
 
-						<h2 class="light bordered main-title"><span>Conference Presentations</span></h2>
+                    <h2 class="light bordered main-title"><span>Conference Presentations</span></h2>
 
-						<ol style="list-style-type:square;">
-							<li>Verma, A. K., Kumar, A. D., Chivukula, U., & Kumar, N. (May 2026). High-Frequency rTMS Modulates Automatic Alcohol Approach Tendencies: A Neurophysiological Investigation. 17th World Congress of the International Neuromodulation Society (INS 2026), Lisbon, Portugal.</li>
+                    <ul class="pub-list preprint-list">
+                        <li>Verma, A. K., Kumar, A. D., Chivukula, U., &amp; Kumar, N. (May 2026). High-Frequency rTMS Modulates Automatic Alcohol Approach Tendencies: A Neurophysiological Investigation. 17th World Congress of the International Neuromodulation Society (INS 2026), Lisbon, Portugal.</li>
+                        <li>Pal, R., Yadav, G., Kumar, N. (April 2026). Engaging Working Memory Following Skill Memory Reactivation has a Time-Dependent Impact on Skill Generalization. Annual Meeting of the Society for the Neural Control of Movement (NCM-2026), Kobe, Japan. </li>
+                        <li>Kumar, A. D., Kumar, A., &amp; Kumar, N. (April 2026). Consolidation Drives Flexible, Task-specific Expression of Implicit and Explicit Motor Memory. 35th Annual Meeting (NCM 2026), Society for the Neural Control of Movement, Kobe, Japan.</li>
+                        <li>Sannamath, S., Kaur, R., Kumar, A. D., Kumar, A., &amp; Kumar, N. (April 2026). Context Dependent Protection of Reactivated Motor Memory. 35th Annual Meeting (NCM 2026), Society for the Neural Control of Movement, Kobe, Japan.</li>
+                        <li>Verma, A. K., Chivukula, U., &amp; Kumar, N. (March 2026). Investigating Behavioral and Neurocognitive Mechanisms Underlying Automatic Tendencies in Alcohol Use: From Classification to Neuromodulation. Prime Minister&rsquo;s Research Fellows Annual Symposium 2026, IIT Guwahati &amp; Ministry of Education, Guwahati, India.</li>
+                        <li>Kumar, A. D., Kumar, A., Kumar, N. (November 2025). Interaction between Model-based and Model-free Mechanisms in Motor Learning.  Neuroscience 2025, Society for Neuroscience, San Diego, CA.</li>
+                        <li>Verma, A. K., Chivukula, U., Garbusow, M., &amp; Kumar, N. (November2025). Modulating Alcohol Approach Tendencies and Instrumental Responses Using Counterconditioning. Neuroscience 2025, Society for Neuroscience, San Diego, CA.</li>
+                        <li>Kumar, A., Kumar, A. D., Kumar, N. (December 2024). Role of Contextual Cues on the Expression of Competing Motor Memories. Annual Conference of Cognitive Science - 11, IIT Bombay, India.</li>
+                        <li>Kumar, A. D., Kumar, A., Kumar, N. (December 2024). Interaction between Implicit and Explicit Processes in Motor Adaptation. Annual Conference of Cognitive Science - 11, IIT Bombay, India.</li>
+                        <li>Verma, A. K., Kumar, A. D., Chivukula, U., &amp; Kumar, N. (October 2024). Influence of Approach and Avoidance Tendencies on Neural Dynamics in Heavy Drinkers: an ERP-based Investigation for Alcohol Group Sub-classification. Neuroscience 2024, Society for Neuroscience, Chicago, IL.</li>
+                        <li>Pal, R., Yadav, G., Matkar, S., Kumar, N. (December 2024). Role of Working Memory in Interlimb Generalization of Newly Acquired Motor Skills. Annual Conference of Cognitive Science - 11, IIT Bombay, India.</li>
+                        <li>Jain, R., Kumar, N. (December 2024). Contextual expression of motor adaptation does not update the existing motor memories. Annual Conference of Cognitive Science - 11, IIT Bombay, India.</li>
+                        <li>Sahai, A., Singh, D., Kumar, N. (December 2024). Emotions can fool your perception but not your action. Annual Conference of Cognitive Science - 11, IIT Bombay, India.</li>
+                        <li>Kumar, A., Kumar, A.D., &amp; Kumar, N. (April 2024). Role of Contextual Cues on the Expression of Competing Motor Memories. Annual meeting of Society for the Neural Control of Movement, Dubrovnik, Croatia</li>
+                        <li>Yadav, G., Matkar, S., Pal. R., &amp; Kumar, N. (November 2023). Role of working memory in immediate versus delayed interlimb generalization of a newly learned motor skill.  Neuroscience 2023, Society for Neuroscience, Washington DC.</li>
+                        <li>Kumar, N., Darainy, M., Sidarta, A., Silver, L., Varghese, R., Shapiro, S., Ostry, D. J., &amp; Thiel, A. (October 2019). Robot-assisted modulation of post-stroke motor-network connectivity:  from basic science to clinical application. CIUSS Rehabilitation Day, Montreal, Canada.</li>
+                        <li>Kumar, N., Manning, T.F. &amp; Ostry, D.J. (May 2019). Intermittent Theta-burst Magnetic Stimulation over Somatosensory Cortex increases Consolidation of Motor Learning. Annual meeting of Society for Neuroscience, Chicago, USA.</li>
+                        <li>Kumar, N., Manning, T.F. &amp; Ostry, D.J. (November 2018). Somatosensory Cortex rather than Motor Cortex Participates in the Consolidation of Human Motor Memory. Annual meeting of Society for Neuroscience, San Diego, USA.</li>
+                        <li>Kumar, N., Manning, T.F. &amp; Ostry, D.J. (May 2018). Role of Somatosensory Cortex in Consolidation of Motor Learning. Annual meeting of Society for the Neural Control of Movement, Santa fe, USA.</li>
+                        <li>Kumar, N., &amp; Mutha, P.K. (November 2017). The influence of action reinforcement on perceptual decision-making. Annual meeting of Society for Neuroscience, Washington DC, USA.</li>
+                        <li>Kumar, N., &amp; Sunny, M.M. (March 2017). Attention capture as a function of prediction error. 4th International AttLis Workshop: Attentive Listener in the Visual World, BITS Pilani Goa Campus, India</li>
+                        <li>Kumar, N., &amp; Mutha, P.K. (October 2016). Effector Independent Neural Basis of Motor Learning. 3rd Annual conference on Cognitive Science, IIT Gandhinagar, India</li>
+                        <li>Rao, N., Kumar, N., &amp; Mutha, P.K. (September 2016). Selective suppression of adaptation to motor errors irrelevant to task success. Vth International Scientific Conference on Motor Control, Wisla, Poland.</li>
+                        <li>Kumar, N., &amp; Mutha, P.K. (October 2015). Interference between motor memories developed through learning with different arms. Annual meeting of Society for Neuroscience, Chicago, USA.</li>
+                        <li>Kumar, N., &amp; Mutha, P.K. (July 2015). Adaptive reliance on the most stable sensory predictions during perception. 2nd Annual conference on Cognitive Science, IIT Kanpur, India</li>
+                        <li>Kumar, N., Manjaly, J.A., Mutha, P. (November 2014). &ldquo;Visuomotor adaptation influences perceptual decision-making&rdquo;. Society of Neuroscience, Washington DC, USA.</li>
+                        <li>Sunny, M. M., Kumar, N., Manjaly, J. A. (June 2014). &ldquo;The Effect of Temporal Unpredictability of Action Outcome on Attention Capture.&rdquo; International conference on Cognition and Action, Jagiellonian University, Poland. </li>
+                        <li>Manjaly, J. A., Kumar, N. (June 2014). &ldquo;Emergence of action-oriented framework and its implications in cognitive science.&rdquo; International conference on Cognition and Action, Jagiellonian University, Poland.</li>
+                        <li>Kumar, N., &amp; Manjaly, J. A. (December 2013). &ldquo;The role of prediction and proprioceptive feedback on self-perception.&rdquo; International conference on Cognition, Emotion and Action at IIT Gandhinagar, India.</li>
+                        <li>Kumar, N., Mukherjee, S., &amp; Manjaly, J. A. (March 2013). "Money modulates attribution of agency". In 20th conference on Toward a Science of Consciousness of Arizona Center for Consciousness Studies at Dayalbagh Educational Institute, Agra, India. </li>
+                        <li>Mukherjee, S., Kumar, N., &amp; Manjaly, J. A. (December 2012). "For your eyes only: Simply priming money facilitates insight problem solving". In XXII Annual convention of National Academy of Psychology India (NAOP) at Christ University, Bangalore, India.</li>
+                        <li>Kumar, N., J. A. Manjaly &amp; K. P. Miyapuram (August 2012). &ldquo;Role of error monitoring mechanisms in attribution of sense of self-agency&rdquo;. 34th Cognitive Science Society Conference, Sapporo Convention Center, Sapporo, Japan.</li>
+                    </ul>
 
-						
-							
-							<li>Pal, R., Yadav, G., Kumar, N. (April 2026). Engaging Working Memory Following Skill Memory Reactivation has a Time-Dependent Impact on Skill Generalization. Annual Meeting of the Society for the Neural Control of Movement (NCM-2026), Kobe, Japan. </li>
-
-
-							<li>Kumar, A. D., Kumar, A., & Kumar, N. (April 2026). Consolidation Drives Flexible, Task-specific Expression of Implicit and Explicit Motor Memory. 35th Annual Meeting (NCM 2026), Society for the Neural Control of Movement, Kobe, Japan.</li>
-
-							
-							<li>Sannamath, S., Kaur, R., Kumar, A. D., Kumar, A., & Kumar, N. (April 2026). Context Dependent Protection of Reactivated Motor Memory. 35th Annual Meeting (NCM 2026), Society for the Neural Control of Movement, Kobe, Japan.</li>
-
-
-	
-							<li>Verma, A. K., Chivukula, U., & Kumar, N. (March 2026). Investigating Behavioral and Neurocognitive Mechanisms Underlying Automatic Tendencies in Alcohol Use: From Classification to Neuromodulation. Prime Minister’s Research Fellows Annual Symposium 2026, IIT Guwahati & Ministry of Education, Guwahati, India.</li>
-
-
-
-
-
-
-							<li>Kumar, A. D., Kumar, A., Kumar, N. (November 2025). Interaction between Model-based and Model-free Mechanisms in Motor Learning.  Neuroscience 2025, Society for Neuroscience, San Diego, CA.</li>
-
-							<li>Verma, A. K., Chivukula, U., Garbusow, M., & Kumar, N. (November2025). Modulating Alcohol Approach Tendencies and Instrumental Responses Using Counterconditioning. Neuroscience 2025, Society for Neuroscience, San Diego, CA.</li>
-
-
-
-							<li>Kumar, A., Kumar, A. D., Kumar, N. (December 2024). Role of Contextual Cues on the Expression of Competing Motor Memories. Annual Conference of Cognitive Science - 11, IIT Bombay, India.</li>
-
-							<li>Kumar, A. D., Kumar, A., Kumar, N. (December 2024). Interaction between Implicit and Explicit Processes in Motor Adaptation. Annual Conference of Cognitive Science - 11, IIT Bombay, India.</li>
-
-							<li>Verma, A. K., Kumar, A. D., Chivukula, U., & Kumar, N. (October 2024). Influence of Approach and Avoidance Tendencies on Neural Dynamics in Heavy Drinkers: an ERP-based Investigation for Alcohol Group Sub-classification. Neuroscience 2024, Society for Neuroscience, Chicago, IL.</li>
-
-							<li>Pal, R., Yadav, G., Matkar, S., Kumar, N. (December 2024). Role of Working Memory in Interlimb Generalization of Newly Acquired Motor Skills. Annual Conference of Cognitive Science - 11, IIT Bombay, India.</li>
-
-							<li>Jain, R., Kumar, N. (December 2024). Contextual expression of motor adaptation does not update the existing motor memories. Annual Conference of Cognitive Science - 11, IIT Bombay, India.</li>
-
-							<li>Sahai, A., Singh, D., Kumar, N. (December 2024). Emotions can fool your perception but not your action. Annual Conference of Cognitive Science - 11, IIT Bombay, India.</li>
-
-							<li>Kumar, A., Kumar, A.D., & Kumar, N. (April 2024). Role of Contextual Cues on the Expression of Competing Motor Memories. Annual meeting of Society for the Neural Control of Movement, Dubrovnik, Croatia</li>
-
-
-
-							<li>Yadav, G., Matkar, S., Pal. R., & Kumar, N. (November 2023). Role of working memory in immediate versus delayed interlimb generalization of a newly learned motor skill.  Neuroscience 2023, Society for Neuroscience, Washington DC.</li>
-
-
-
-						<li>Kumar, N., Darainy, M., Sidarta, A., Silver, L., Varghese, R., Shapiro, S., Ostry, D. J., & Thiel, A. (October 2019). Robot-assisted modulation of post-stroke motor-network connectivity:  from basic science to clinical application. CIUSS Rehabilitation Day, Montreal, Canada.</li>
-
-						<li>Kumar, N., Manning, T.F. & Ostry, D.J. (May 2019). Intermittent Theta-burst Magnetic Stimulation over Somatosensory Cortex increases Consolidation of Motor Learning. Annual meeting of Society for Neuroscience, Chicago, USA.</li>
-
-						<li>Kumar, N., Manning, T.F. & Ostry, D.J. (November 2018). Somatosensory Cortex rather than Motor Cortex Participates in the Consolidation of Human Motor Memory. Annual meeting of Society for Neuroscience, San Diego, USA.</li>
-
-						<li>Kumar, N., Manning, T.F. & Ostry, D.J. (May 2018). Role of Somatosensory Cortex in Consolidation of Motor Learning. Annual meeting of Society for the Neural Control of Movement, Santa fe, USA.</li>
-
-						<li>Kumar, N., & Mutha, P.K. (November 2017). The influence of action reinforcement on perceptual decision-making. Annual meeting of Society for Neuroscience, Washington DC, USA.</li>
-
-						<li>Kumar, N., & Sunny, M.M. (March 2017). Attention capture as a function of prediction error. 4th International AttLis Workshop: Attentive Listener in the Visual World, BITS Pilani Goa Campus, India</li>
-
-						<li>Kumar, N., & Mutha, P.K. (October 2016). Effector Independent Neural Basis of Motor Learning. 3rd Annual conference on Cognitive Science, IIT Gandhinagar, India</li>
-
-						<li>Rao, N., Kumar, N., & Mutha, P.K. (September 2016). Selective suppression of adaptation to motor errors irrelevant to task success. Vth International Scientific Conference on Motor Control, Wisla, Poland.</li>
-
-						<li>Kumar, N., & Mutha, P.K. (October 2015). Interference between motor memories developed through learning with different arms. Annual meeting of Society for Neuroscience, Chicago, USA.</li>
-
-						<li>Kumar, N., & Mutha, P.K. (July 2015). Adaptive reliance on the most stable sensory predictions during perception. 2nd Annual conference on Cognitive Science, IIT Kanpur, India</li>
-
-						<li>Kumar, N., Manjaly, J.A., Mutha, P. (November 2014). “Visuomotor adaptation influences perceptual decision-making”. Society of Neuroscience, Washington DC, USA.</li>
-
-						<li>Sunny, M. M., Kumar, N., Manjaly, J. A. (June 2014). “The Effect of Temporal Unpredictability of Action Outcome on Attention Capture.” International conference on Cognition and Action, Jagiellonian University, Poland. </li>
-
-						<li>Manjaly, J. A., Kumar, N. (June 2014). “Emergence of action-oriented framework and its implications in cognitive science.” International conference on Cognition and Action, Jagiellonian University, Poland.</li>
-
-						<li>Kumar, N., & Manjaly, J. A. (December 2013). “The role of prediction and proprioceptive feedback on self-perception.” International conference on Cognition, Emotion and Action at IIT Gandhinagar, India.</li>
-
-						<li>Kumar, N., Mukherjee, S., & Manjaly, J. A. (March 2013). "Money modulates attribution of agency". In 20th conference on Toward a Science of Consciousness of Arizona Center for Consciousness Studies at Dayalbagh Educational Institute, Agra, India. </li>
-
-						<li>Mukherjee, S., Kumar, N., & Manjaly, J. A. (December 2012). "For your eyes only: Simply priming money facilitates insight problem solving". In XXII Annual convention of National Academy of Psychology India (NAOP) at Christ University, Bangalore, India.</li>
-
-						<li>Kumar, N., J. A. Manjaly & K. P. Miyapuram (August 2012). “Role of error monitoring mechanisms in attribution of sense of self-agency”. 34th Cognitive Science Society Conference, Sapporo Convention Center, Sapporo, Japan.</li>
-
-						
-						</ol>
-
-					</div>
-
-					
+                </div>
 
 			</div>
     
@@ -577,12 +750,8 @@
         	
 			<div class="row">
 			
-            	<!-- Footer Widget
-					============================================= -->
-				<div class="col-md-4">
+            	<div class="col-md-4">
                     
-					<!-- Menu List
-					============================================= -->
 					<div class="footer-widget">
                         
 						<h4><span>Menu</span></h4>
@@ -592,7 +761,6 @@
                             <li><a href="People.html"><i class="fa fa-long-arrow-right"></i>People</a></li>
                             <li><a href="research.html"><i class="fa fa-long-arrow-right"></i>Research</a></li>
                             <li><a href="publications.html"><i class="fa fa-long-arrow-right"></i>Publications</a></li>
-							<!-- <li><a href="teaching.html" ><i class="fa fa-long-arrow-right"></i>Teaching</a></li> -->
                             <li><a href="contact.html"><i class="fa fa-long-arrow-right"></i>Contact Us</a></li>
                         </ul>
 						
@@ -602,39 +770,10 @@
 				
 				
             	<div class="col-md-4">
-				
-					<!-- Footer Widget
-					============================================= -->
-					<!-- <div class="footer-widget">
-						
-						<h4><span>Latest Tweets</span></h4>
-						
-						<div class="twitter-widget">
-							
-							<div class="tweet">
-								<i class="fa fa-twitter"></i>
-								<p><a href="#">@Rotography</a> Please kindly use our Support Forum: <a href="#.">pixelatic.co.uk.</a>
-								<span>about a month ago</span>
-								</p>
-							</div>
-						
-							<div class="tweet">
-								<i class="fa fa-twitter"></i>
-								<p><a href="#">@Rotography</a> Please kindly use our Support Forum: <a href="#.">pixelatic.co.uk.</a>
-								<span>about a month ago</span>
-								</p>
-							</div>
-							
-						</div>
-						
-					</div> -->
-					
                 </div>
 				
             	<div class="col-md-4">
                    
-					<!-- Footer Widget
-					============================================= -->
 					<div class="footer-widget">
                     
 						<h4><span>get in touch</span></h4>
@@ -646,13 +785,6 @@
                             <i class="fa fa-mobile"></i><p class="phone-number">(+91) 040 2301 8485</p>
                         </div>
 						
-						<!-- <ul class="social3 clearfix">
-							<li><a href="#."><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#."><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#."><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="#."><i class="fa fa-skype"></i></a></li>
-						</ul> -->
-						
                     </div>
 					
                 </div>
@@ -662,20 +794,8 @@
 		
 		<!-- Copyright
 		============================================= -->
-        <p class="copyright text-center">Copyright &copy; 2024 Sensorimotor Plasticity Lab. All right reserved.</p>
+        <p class="copyright text-center">Copyright &copy; 2026 Sensorimotor Plasticity Lab. All right reserved.</p>
         
-		
-		<!-- Footer Bottom
-		============================================= -->
-		<!--div class="container">
-        	<div class="row">
-            	<div class="col-md-2"><a href="#."><img src="images/footer-logo.jpg" alt="" title="Medicom Logo"></a></div>
-            	<div class="col-md-10">
-                	<p class="footer-bottom-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing.</p>
-                </div>
-            </div>
-        </div-->
-		
 		
     </footer>
 
@@ -741,10 +861,6 @@
 				forceFullWidth:"on"
 			});
 			
-			
-
-     
-
 
 			/* ------------------------------------------------------------------------ 
 			   SMALL HEADER 
@@ -771,6 +887,42 @@
 			checkWidth();
 			// Bind event listener
 			$(window).resize(checkWidth);
+
+
+			/* ------------------------------------------------------------------------ 
+			   PUBLICATIONS - YEAR TABS
+			------------------------------------------------------------------------ */
+			$(function () {
+
+				$(document).on('click', '.pub-tabs .pub-tab-link', function (e) {
+
+					e.preventDefault();
+
+					var $link   = $(this),
+						$wrap   = $link.closest('.pub-tabs'),
+						target  = $link.attr('href');
+
+					if (!target || target.charAt(0) !== '#') { return; }
+
+					// activate the clicked tab
+					$wrap.children('.pub-tab-list')
+						 .find('.pub-tab-link')
+						 .removeClass('active');
+					$link.addClass('active');
+
+					// hide all panes, then show the matching one
+					$wrap.children('.pub-tab-panes')
+						 .children('.pub-pane')
+						 .removeClass('active')
+						 .hide();
+
+					$wrap.children('.pub-tab-panes')
+						 .children(target)
+						 .addClass('active')
+						 .fadeIn(150);
+				});
+
+			});
 		
 		})(jQuery);
 
